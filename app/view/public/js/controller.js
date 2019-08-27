@@ -1,5 +1,4 @@
 var app = angular.module("App",['ngRoute','angularUtils.directives.dirPagination']);
-
 app.controller("AppCtrl", function($scope,  $http, $location, $route){
 	localStorage.setItem("cid", 0);
 	$scope.data = {};
@@ -73,7 +72,12 @@ app.controller("AppCtrl1", function($scope,  $http, $location, $route){
 				data : data
 			}
 		).success(function(create){
-			console.log(create);
+			if(create.status == "ok"){
+				alert("Exito creando Posts. Este alert es esteticamente mejorable!");
+				$scope.clean();
+			}else{
+				alert("No fue posible crear Posts");
+			}
 			//$scope.clean();
 		}).error(function(){
 			alert("Error creando posts");
@@ -92,8 +96,12 @@ app.controller("AppCtrl1", function($scope,  $http, $location, $route){
 				data : data
 			}
 		).success(function(edit){
-			$scope.clean();
-			$scope.getPosts();
+			if(edit.status == "ok"){
+				alert("Exito modificando Posts. Este alert es esteticamente mejorable!");
+				$scope.getPosts();
+			}else{
+				alert("No fue posible modificar Posts");
+			}
 		}).error(function(){
 			alert("Error editando posts");
 		});
@@ -106,7 +114,12 @@ app.controller("AppCtrl1", function($scope,  $http, $location, $route){
 				id : id
 			}
 		).success(function(remove){
-			$scope.getPosts();
+			if(remove.status == "ok"){
+				alert("Exito eliminando Posts. Este alert es esteticamente mejorable!");
+				$scope.getPosts();
+			}else{
+				alert("No fue posible eliminar Posts");
+			}
 		}).error(function(){
 			alert("Error eliminando posts");
 		});
